@@ -10,6 +10,7 @@ Contains few improvements suggested in the paper Improving the Neural Algorithm 
 """
 
 # to do: 下面我们会逐渐地把掩膜等其它特性加上，最后达到消化理解这篇杰作的目的。然后我们会写一篇论文，加入自己的理解。
+import os
 
 from scipy.misc import imread, imresize, imsave
 from scipy.optimize import fmin_l_bfgs_b
@@ -24,15 +25,23 @@ import tensorflow as tf
 # -----------------------------------------------------------------------------------------------------------------------
 
 # 参数：内容图像名，样式图像名列表，样式图像权重，输出图像宽度，内容图像权重，TV权重，迭代次数，输出图像路径，运算设备
-base_image_path = 'd:/Yc.jpg'   
-style_image_paths = ['d:/Ys.jpg']
+base_image_path = './Yc.jpg'
+style_image_paths = ['./Ys.jpg']
 style_weights = [1.0]
 img_size = 200
 content_weight = 0.001
 total_variation_weight = 8.5e-5
 num_iter = 10
-output_path = 'd:/tmp/'
+output_path = './results'
 device_type = '/cpu:0'
+
+if not os.path.exists(base_image_path):
+	raise RuntimeError('No content image detected in file path.')
+if not os.path.exists(style_image_paths):
+	raise RuntimeError('No content image detected in file path.')
+if not os.path.exists(output_path):
+	os.mkdir(output_path)
+
 # -----------------------------------------------------------------------------------------------------------------------
 
 # 工具函数。将图像转换为VGG网络所使用的张量。
@@ -200,3 +209,5 @@ with tf.device(device_type):   # 大图像将导致显存不够，需要改用CP
         imsave(fname, img)
         print("Current loss value: %d, Iteration %d completed in %ds." % (min_val/img_width/img_height, i+1, time.time() - start_time))
         
+
+
