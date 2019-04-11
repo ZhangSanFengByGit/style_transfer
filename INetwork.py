@@ -37,8 +37,9 @@ device_type = '/cpu:0'
 
 if not os.path.exists(base_image_path):
 	raise RuntimeError('No content image detected in file path.')
-if not os.path.exists(style_image_paths):
-	raise RuntimeError('No content image detected in file path.')
+for p in style_image_paths:
+	if not os.path.exists(p):
+		raise RuntimeError('No content image detected in file path.')
 if not os.path.exists(output_path):
 	os.mkdir(output_path)
 
