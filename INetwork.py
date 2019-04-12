@@ -31,7 +31,7 @@ style_weights = [1.0]
 img_size = 200
 content_weight = 0.001
 total_variation_weight = 8.5e-5
-num_iter = 30
+num_iter = 10
 output_path = './results'
 device_type = '/cpu:0'
 
