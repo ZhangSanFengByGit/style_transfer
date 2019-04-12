@@ -206,7 +206,7 @@ with tf.device(device_type):   # 大图像将导致显存不够，需要改用CP
         # 图像尺寸调整及中间结果保存
         img_ht = int(img_width * aspect_ratio)
         img = imresize(img, (img_width, img_ht), interp='bicubic')
-        fname = output_path + "_at_iteration_%d.png" % (i + 1)
+        fname = output_path + "/result_at_iteration_%d.png" % (i + 1)
         imsave(fname, img)
         print("Current loss value: %d, Iteration %d completed in %ds." % (min_val/img_width/img_height, i+1, time.time() - start_time))
         
